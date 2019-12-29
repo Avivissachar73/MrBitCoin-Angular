@@ -1,0 +1,8 @@
+<main class="main-content contact-edit flex align-center justify-center">
+    <form *ngIf="contact" (submit)="saveContact($event)" class="basic-form">
+        <input type="text" placeholder="Name" name="name" [(ngModel)]="contact.name"/>
+        <input type="text" placeholder="Phone" name="phone" [(ngModel)]="contact.phone"/>
+        <input type="text" placeholder="Email" name="email" [(ngModel)]="contact.email"/>
+        <button>Save</button>
+    </form>
+</main>

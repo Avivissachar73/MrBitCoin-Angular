@@ -1,0 +1,6 @@
+<main class="main-content contact-page flex column align-center">
+    <h2>Your Contants</h2>
+    <contact-filter (setFilter)="setFilter($event)"></contact-filter>
+    <a routerLinkActive="active" routerLink="/contact/edit/">Add new contact</a>
+    <contact-list (removeContact)="removeContact($event)" ng-if="contacts" [contacts]="contactsToShow"></contact-list>
+</main>

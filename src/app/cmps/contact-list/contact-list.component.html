@@ -1,0 +1,11 @@
+<ul class="contact-list clean-list flex column">
+    <li *ngFor="let contact of contacts" class="flex wrap">
+        <a routerLinkActive="active" [routerLink]="'/contact/'+contact._id">
+            <contact-preview [contact]="contact"></contact-preview>
+        </a>
+        <div class="flex column space-between btn-container">
+            <a routerLinkActive="active" [routerLink]="'/contact/edit/'+contact._id">Edit</a>
+            <button (click)="remove(contact._id)">Remove</button>
+        </div>
+    </li>
+</ul>

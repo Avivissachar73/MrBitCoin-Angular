@@ -1,0 +1,7 @@
+<main class="main-content flex align-center justify-center">
+    <form (submit)="login($event)" class="basic-form">
+        <input type="text" placeholder="username" name="username" [(ngModel)]="loginInfo.username"/>
+        <input type="text" placeholder="password" name="password" [(ngModel)]="loginInfo.password"/>
+        <button>Log in</button>
+    </form>
+</main>

@@ -1,0 +1,8 @@
+<section *ngIf="contact && user">
+    <h3>You have {{user.coins}}$</h3>
+    <h3>Send him some money?</h3>
+    <form (submit)="sendMoney($event)">
+        <input name="amount" type="number" min="0" max="contact.coins" placeholder="Amount of money to send" [(ngModel)]="amountOfMoneyToSend"/>
+        <button>Send</button>
+    </form>
+</section>

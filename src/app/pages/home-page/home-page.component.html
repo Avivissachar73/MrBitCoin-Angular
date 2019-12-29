@@ -1,0 +1,10 @@
+<main *ngIf="user" class="main-content flex column align-center">
+    <section class="flex column">
+        <h2>Hello, {{user.username}}</h2>
+        <h2>You have {{user.coins}} coins</h2>
+    </section>
+    <section *ngIf="moves.length" class="flex column align-center">
+        <h2>Your moves:</h2>
+        <move-list [moves]="moves"></move-list>
+    </section>
+</main>
