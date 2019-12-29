@@ -24,7 +24,7 @@ export class MoveService {
 
   constructor(private userService : UserService, private contactService : ContactService) { }
 
-  query(filterBy = {}) {
+  query(filterBy : any = {}) {
     var moves = [...gMoves];
     if (filterBy.contactId) {
       moves = moves.filter(curr => curr.from._id === filterBy.contactId ||
@@ -74,6 +74,22 @@ export class MoveService {
     toUser.coins += amount;
     await this.userService.save(fromUser);
     await this.contactService.save(toUser);
+
+    return move;
+  }
+
+  async unSendMoney(move) {
+    console.log('undoing..', move);
+    var fromUser = await this.userService.getLoggedUser();
+    var toUser = await this.contactService.get(move.to._id);
+    
+    fromUser.coins += move.amount;
+    toUser.coins -= move.amount;
+    
+    await this.userService.save(fromUser);
+    await this.contactService.save(toUser);
+    
+    await this.remove(move._id);
 
     return move;
   }

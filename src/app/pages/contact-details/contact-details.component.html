@@ -1,13 +1,16 @@
-<main *ngIf="contact" class="main-content contact-details flex column align-center space-between">
-    <section class="info">
-        <h2>{{contact.name}}</h2>
-        <h3>Phone: {{contact.phone}}</h3>
-        <h3>Email: {{contact.email}}</h3>
-        <h3>Coins: {{contact.coins}}</h3>
+<main *ngIf="contact" class="main-content contact-details flex column align-center">
+    <section class="info" class="flex wrap align-center space-around">
+        <img [src]="img" alt="">
+        <div>
+            <h2>{{contact.name}}</h2>
+            <h3>Phone: {{contact.phone}}</h3>
+            <h3>Email: {{contact.email}}</h3>
+            <h3>Coins: {{contact.coins}}</h3>
+        </div>
     </section>
-    <money-sender (moveAdded)="moveAdded($event)" [contact]="contact"></money-sender>
+    <money-sender (moveAdded)="moveAdded($event)" [contact]="contact" [user]="user"></money-sender>
     <section *ngIf="moves.length" class="flex column align-center">
         <h3>{{contact.name}}'s moves:</h3>
-        <move-list [moves]="moves"></move-list>
+        <move-list [moves]="moves" (moveRemoved)="moveRemoved($event)"></move-list>
     </section>
 </main>

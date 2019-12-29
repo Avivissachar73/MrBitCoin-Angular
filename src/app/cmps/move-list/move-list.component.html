@@ -1,5 +1,6 @@
-<ul *ngIf="moves" class="clean-list flex column move-list">
-    <li *ngFor="let move of moves">
+<ul *ngIf="moves" class="clean-list flex column align-center justify-center move-list">
+    <li *ngFor="let move of moves" class="flex space-between flex-end">
         <move-preview [move]="move"></move-preview>
+        <button (click)="undoMove(move)">Un do</button>
     </li>
 </ul>

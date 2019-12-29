@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContactService } from 'src/app/services/contact.service';
 import { ActivatedRoute } from '@angular/router';
 import { MoveService } from 'src/app/services/move.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-contact-details',
@@ -12,21 +13,46 @@ export class ContactDetailsComponent implements OnInit {
 
   constructor(private contactService : ContactService,
               private moveService : MoveService,
+              private userService : UserService,
               private activatedRoute: ActivatedRoute) { }
 
-contact = null;
-moves = [];
+  contact = null;
+  user = null;
+  moves = [];
 
-moveAdded(move) {
-  this.moves.unshift(move);
-}
+  get img() {
+    if (!this.contact) return '';
+    return this.contact.img || `https://api.adorable.io/avatars/285/${this.contact.name}.png`;
+  }
 
-async ngOnInit() {
-  this.activatedRoute.params.subscribe( async params => {
-    console.log(params);
-    this.contact = await this.contactService.get(params._id);
-    this.moves = await this.moveService.query({contactId: this.contact._id});
-  });
-}
+  async ngOnInit() {
+    await this.loadUser();
+    this.activatedRoute.params.subscribe( async params => {
+      console.log(params);
+      this.loadContact(params._id);
+    });
+  }
+
+  moveAdded(move) {
+    this.moves.unshift(move);
+  }
+
+  async loadUser() {
+    this.user = await this.userService.getLoggedUser();
+  }
+
+
+  async loadContact(_id) {
+    this.contact = await this.contactService.get(_id);
+    this.moves = await this.moveService.query({contactId: _id});
+  }
+
+  async moveRemoved(_id) {
+    var idx = this.moves.find(curr => curr._id === _id);
+    if (idx === -1) return new Error('something went wrong');
+    this.moves.splice(idx, 1);
+
+    await this.loadUser();
+  }
 
 }

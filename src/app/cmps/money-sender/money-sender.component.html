@@ -1,4 +1,4 @@
-<section *ngIf="contact && user">
+<section *ngIf="contact && user" class="money-sender flex column space-between">
     <h3>You have {{user.coins}}$</h3>
     <h3>Send him some money?</h3>
     <form (submit)="sendMoney($event)">

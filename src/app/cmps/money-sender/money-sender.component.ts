@@ -12,15 +12,12 @@ export class MoneySenderComponent implements OnInit {
   constructor(private userService : UserService,
               private moveService : MoveService) { }
 
-  user = null;
   amountOfMoneyToSend = 0;
 
   @Output() moveAdded = new EventEmitter;
   @Input() contact = null;
+  @Input() user = null;
 
-  async loadUser() {
-    this.user = await this.userService.getLoggedUser();
-  }
 
   async sendMoney(ev) {
     ev.preventDefault();
@@ -30,7 +27,6 @@ export class MoneySenderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadUser();
   }
 
 }
