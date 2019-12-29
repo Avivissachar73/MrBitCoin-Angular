@@ -24,7 +24,7 @@ export class MoveService {
 
   constructor(private userService : UserService, private contactService : ContactService) { }
 
-  query(filterBy = {}) {
+  query(filterBy : any = {}) {
     var moves = [...gMoves];
     if (filterBy.contactId) {
       moves = moves.filter(curr => curr.from._id === filterBy.contactId ||
