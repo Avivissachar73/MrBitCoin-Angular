@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --base-href “https://Avivissachar73.github.io/MrBitCoin-Angular/”",
+    "build": "ng build --prod --base-href https://Avivissachar73.github.io/MrBitCoin-Angular/",
+    "deploy": "ngh --dir=dist/Mr-BitCoin",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

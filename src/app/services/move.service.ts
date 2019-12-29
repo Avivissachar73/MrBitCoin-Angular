@@ -80,14 +80,15 @@ export class MoveService {
 
   async unSendMoney(move) {
     console.log('undoing..', move);
-    var fromUser = await this.userService.getLoggedUser();
-    var toUser = await this.contactService.get(move.to._id);
-    
-    fromUser.coins += move.amount;
-    toUser.coins -= move.amount;
-    
-    await this.userService.save(fromUser);
-    await this.contactService.save(toUser);
+    try {
+      var fromUser = await this.userService.getLoggedUser();
+      fromUser.coins += move.amount;
+      await this.userService.save(fromUser);
+      
+      var toUser = await this.contactService.get(move.to._id);
+      toUser.coins -= move.amount;
+      await this.contactService.save(toUser);
+    } catch(err) {}
     
     await this.remove(move._id);
 
