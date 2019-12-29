@@ -77,6 +77,22 @@ export class MoveService {
 
     return move;
   }
+
+  async unSendMoney(move) {
+    console.log('undoing..', move);
+    var fromUser = await this.userService.getLoggedUser();
+    var toUser = await this.contactService.get(move.to._id);
+    
+    fromUser.coins += move.amount;
+    toUser.coins -= move.amount;
+    
+    await this.userService.save(fromUser);
+    await this.contactService.save(toUser);
+    
+    await this.remove(move._id);
+
+    return move;
+  }
 }
 
 

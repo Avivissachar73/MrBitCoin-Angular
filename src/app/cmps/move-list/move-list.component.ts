@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MoveService } from 'src/app/services/move.service';
 
 @Component({
   selector: 'move-list',
@@ -7,9 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MoveListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private moveService : MoveService) { }
 
   @Input() moves = [];
+  @Output() moveRemoved = new EventEmitter
+
+  async undoMove(move) {
+    await this.moveService.unSendMoney(move);
+    this.moveRemoved.emit(move._id);
+  }
 
   ngOnInit() {
   }

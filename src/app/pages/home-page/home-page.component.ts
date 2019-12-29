@@ -17,10 +17,21 @@ export class HomePageComponent implements OnInit {
   user = null;
   moves = [];
 
-  async ngOnInit() {
+  async loadUser() {
     this.user = await this.userService.getLoggedUser();
+  }
+
+  async ngOnInit() {
+    await this.loadUser();
     if (!this.user) this.router.navigate(['/signup']);
     this.moves = await this.moveService.query({contactId: this.user._id});
+  }
+
+  async moveRemoved(_id) {
+    var idx = this.moves.find(curr => curr._id === _id);
+    if (idx === -1) return new Error('something went wrong');
+    this.moves.splice(idx, 1);
+    await this.loadUser();
   }
 
 }
